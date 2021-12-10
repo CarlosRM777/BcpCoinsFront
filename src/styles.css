@@ -1,0 +1,330 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'; */
+
+body{
+    margin-top:20px;
+    color: #1a202c;
+    text-align: left;
+    background-color: #e2e8f0;    
+}
+.inner-wrapper {
+    position: relative;
+    height: calc(100vh - 3.5rem);
+    transition: transform 0.3s;
+}
+@media (min-width: 992px) {
+    .sticky-navbar .inner-wrapper {
+        height: calc(100vh - 3.5rem - 48px);
+    }
+}
+
+.inner-main,
+.inner-sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+.inner-sidebar {
+    left: 0;
+    /* width: 235px; */
+    width: 0px;
+    border-right: 1px solid #cbd5e0;
+    background-color: #fff;
+    z-index: 1;
+}
+.inner-main {
+    right: 0;
+    /* left: 235px; */
+    left: 0px;
+}
+.inner-main-footer,
+.inner-main-header,
+.inner-sidebar-footer,
+.inner-sidebar-header {
+    height: 3.5rem;
+    border-bottom: 1px solid #cbd5e0;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    flex-shrink: 0;
+}
+.inner-main-body,
+.inner-sidebar-body {
+    padding: 1rem;
+    overflow-y: auto;
+    position: relative;
+    flex: 1 1 auto;
+}
+.inner-main-body .sticky-top,
+.inner-sidebar-body .sticky-top {
+    z-index: 999;
+}
+.inner-main-footer,
+.inner-main-header {
+    background-color: #fff;
+}
+.inner-main-footer,
+.inner-sidebar-footer {
+    border-top: 1px solid #cbd5e0;
+    border-bottom: 0;
+    height: auto;
+    min-height: 3.5rem;
+}
+@media (max-width: 767.98px) {
+    .inner-sidebar {
+        left: -235px;
+    }
+    .inner-main {
+        left: 0;
+    }
+    .inner-expand .main-body {
+        overflow: hidden;
+    }
+    .inner-expand .inner-wrapper {
+        transform: translate3d(235px, 0, 0);
+    }
+}
+
+.nav .show>.nav-link.nav-link-faded, .nav-link.nav-link-faded.active, .nav-link.nav-link-faded:active, .nav-pills .nav-link.nav-link-faded.active, .navbar-nav .show>.nav-link.nav-link-faded {
+    color: #3367b5;
+    background-color: #c9d8f0;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #467bcb;
+}
+.nav-link.has-icon {
+    display: flex;
+    align-items: center;
+}
+.nav-link.active {
+    color: #467bcb;
+}
+.nav-pills .nav-link {
+    border-radius: .25rem;
+}
+.nav-link {
+    color: #4a5568;
+}
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+/* .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+ */
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.article {
+    box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
+    border-radius: 5px;
+    overflow: hidden;
+    background: #ffffff;
+    padding: 15px;
+    margin: 15px 0 30px;
+  }
+  .article .article-title {
+    padding: 15px 0 20px;
+  }
+  .article .article-title h6 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .article .article-title h6 a {
+    text-transform: uppercase;
+    color: #fc5356;
+    border-bottom: 1px solid #fc5356;
+  }
+  .article .article-title h2 {
+    color: #20247b;
+    font-weight: 600;
+  }
+  .article .article-title .media {
+    padding-top: 15px;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 20px;
+  }
+  .article .article-title .media .avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .article .article-title .media .media-body {
+    padding-left: 8px;
+  }
+  .article .article-title .media .media-body label {
+    font-weight: 600;
+    color: #fc5356;
+    margin: 0;
+  }
+  .article .article-title .media .media-body span {
+    display: block;
+    font-size: 12px;
+  }
+  .article .article-content h1,
+  .article .article-content h2,
+  .article .article-content h3,
+  .article .article-content h4,
+  .article .article-content h5,
+  .article .article-content h6 {
+    color: #20247b;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  .article .article-content blockquote {
+    max-width: 600px;
+    padding: 15px 0 30px 0;
+    margin: 0;
+  }
+  .article .article-content blockquote p {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fc5356;
+    margin: 0;
+  }
+  .article .article-content blockquote .blockquote-footer {
+    color: #20247b;
+    font-size: 16px;
+  }
+  .article .article-content blockquote .blockquote-footer cite {
+    font-weight: 600;
+  }
+  .article .tag-cloud {
+    padding-top: 10px;
+  }
+  
+  .article-comment {
+    box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
+    border-radius: 5px;
+    overflow: hidden;
+    background: #ffffff;
+    padding: 20px;
+  }
+
+  .label-error {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fc5356;
+    margin: 0;
+  }
+
+  .label-welcome {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1622cc;
+    margin-left: 150px;
+    align-items: center;
+  }
+
+  .label-solved {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1622cc;
+    /* align-items: center; */
+  }
+
+  .nav-link-correct {
+    display: flex;
+    align-items: right;
+    color: rgb(6, 177, 49);
+}
+
+.list-tittle {
+  font-size: 18px;
+  font-weight: 500;
+  color: #3e88f7;
+  /* align-items: center; */
+}
+
+.showtop .ck-editor__editable_inline{
+  max-height: 50px;
+}
+
+.newquestion .ck-editor__editable_inline{
+  min-height: 230px;
+}
+
+.newanswer .ck-editor__editable_inline{
+  min-height: 120px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  border: none;
+  position: relative;
+  margin-bottom: 30px;
+  box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+.l-bg-cherry {
+  background: linear-gradient(to right, #493240, #f09) !important;
+  color: #fff;
+}
+
+.l-bg-blue-dark {
+  background: linear-gradient(to right, #373b44, #4286f4) !important;
+  color: #fff;
+}
+
+.l-bg-green-dark {
+  background: linear-gradient(to right, #0a504a, #38ef7d) !important;
+  color: #fff;
+}
+
+.l-bg-orange-dark {
+  background: linear-gradient(to right, #a86008, #ffba56) !important;
+  color: #fff;
+}
+
+.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 .card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal {
+  font-size: 110px;
+}
+
+.card .card-statistic-3 .card-icon {
+  text-align: center;
+  line-height: 50px;
+  margin-left: 15px;
+  color: #000;
+  position: absolute;
+  right: -5px;
+  top: 20px;
+  opacity: 0.1;
+}
+
+.l-bg-cyan {
+  background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+  color: #fff;
+}
+
+.l-bg-green {
+  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
+  color: #fff;
+}
+
+.l-bg-orange {
+  background: linear-gradient(to right, #f9900e, #ffba56) !important;
+  color: #fff;
+}
+
+.l-bg-cyan {
+  background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+  color: #fff;
+}

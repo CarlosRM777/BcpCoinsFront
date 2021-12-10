@@ -1,0 +1,227 @@
+<!-- Bootstrap 4.4.1 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
+<div class="container" id="main-container">
+<div class="main-body p-0">
+    <div class="inner-wrapper">
+        <!-- Inner sidebar -->
+        <!-- <div class="inner-sidebar"> -->
+            <div class="inner-main">
+            <!-- Inner sidebar header -->
+            <div class="inner-sidebar-header justify-content-center">
+                <button *ngIf="this.isLogin" class="btn btn-primary has-icon btn-block" type="button" data-toggle="modal" data-target="#threadModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    NEW RATE EXCHANGE
+                </button> 
+            </div>
+        </div>
+        <!-- /Inner sidebar -->
+
+        <!-- Inner main -->
+        <div class="inner-main">
+            <!-- Inner main header -->
+            <div class="inner-main-header">
+                <div class="inner-sidebar-header justify-content-center">
+                    <button *ngIf="this.isLogin" class="btn btn-success has-icon btn-block" type="button" data-toggle="modal" data-target="#threadModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        NEW COIN
+                    </button> 
+                </div>
+
+                <label style="cursor: pointer;" *ngIf="this.isLogin" class="label-welcome"><span class="text-center font-weight-bold">
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Bienvenido @{{loginName}} </span></label>
+
+                   <label style="cursor: pointer;" *ngIf="!this.isLogin" class="nav-link-correct"><span class="text-center font-weight-bold">
+                    Coins APP te da la bienvenida, loguéate o regístrate al Sistema! </span></label>
+                <!--<div class="col-4">-->
+                 <span class="input-icon input-icon-sm ml-auto w-auto"> 
+                    <input ngModel #key="ngModel" type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="Search Coins" />
+                 </span> 
+                <!--</div>-->
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button id="Login_button" *ngIf="!this.isLogin" class="btn btn-primary" type="button" data-toggle="modal" data-target="#loginModal">
+                    LOGIN or REGISTER
+                </button>  
+                <button *ngIf="this.isLogin" (click)="onLogout()" class="btn btn-light" type="button" data-toggle="modal">
+                    LOGOUT
+                </button> 
+            </div>
+            <!-- /Inner main header -->
+
+            <!-- Inner main body -->
+
+            <!-- Forum List -->
+            <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+                <div class="col-md-10">
+                    <div class="row ">
+                        <div *ngFor="let exchange of exchangeRates;" class="col-xl-3 col-lg-4">
+                            <div class="card l-bg-green-dark">
+                                <div class="card-statistic-3 p-2">
+                                    <div class="card-icon card-icon-large"><i class="fas fa-ticket-alt"></i></div>
+                                    <div class="mb-4">
+                                        <h5 class="card-title mb-0">{{exchange.monedaOrigen}} - {{exchange.monedaDestino}}</h5>
+                                    </div>
+                                    <div class="row align-items-center mb-2 d-flex">
+                                        <div class="col-8">
+                                            <h2 class="d-flex align-items-center mb-0">
+                                                {{exchange.tipoCambio}}
+                                            </h2>
+                                        </div>
+                                        <div class="col-4 text-right">
+                                            <span>10% <i class="fa fa-arrow-up"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                                        <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Forum List -->
+
+            <!-- Forum Detail -->
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form #exchangeForm="ngForm" (ngSubmit)="onCreateExchangeOperation(exchangeForm)">
+                        <div class="modal-header d-flex align-items-center bg-success text-white">
+                            <h6 class="modal-title mb-0" id="threadModalLabel">New Exchange Operation</h6>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="form-group row justify-content-around">
+                                <label for="fromcoin" class="col-2">From </label>
+                                <select id="fromcoin" ngModel name="fromcoin" class="col-4" (ngModelChange)="onChangeList()">
+                                    <option *ngFor="let coin of coins" [value]="coin.shortName" [selected]="1" required>{{coin.shortName}}</option>
+                                </select>
+                                <input class="text col-5" disabled name="largeNameFrom" ngModel  id="threadDetail" autofocus="" />
+                                </div>
+                                <div class="form-group row justify-content-around">
+                                <label for="tocoin" class="col-2">To</label>
+                                <select id="tocoin" ngModel name="tocoin" class="col-4" (ngModelChange)="onChangeList()">
+                                    <option *ngFor="let coin of coins" [value]="coin.shortName" [selected]="1" required>{{coin.shortName}}</option>
+                                </select>
+                                <input class="text col-5" disabled name="largeNameTo" ngModel id="threadDetail1" autofocus=""/>
+                                </div>
+                                <div class="form-group justify-content-center">
+                                    <div class="row">
+                                    <label for="threadDetail3" class="col-5">Exchange Rate</label>
+                                    <input [ngModel]="exchangeRate" disabled name="exchangerate" ngModel class="text col-7" id="threadDetail3" autofocus="" />
+                                    </div>
+                                    <div class="row">
+                                        <label for="threadDetail3" class="col-5">Amount</label>
+                                        <input name="amount" ngModel class="text col-7" id="threadDetail3" placeholder="Enter Amount" autofocus="" required />
+                                    </div>
+
+                            </div>
+                                <div class="form-group row justify-content-around">
+                                    <button [disabled]="exchangeForm.invalid" type="submit" class="btn btn-primary btn-sm btn-block">Create</button>
+                                </div>    
+                                <div class="form-group row justify-content-around">
+                                    <label for="threadDetail1" class="col-5">Result</label>
+                                    <input [ngModel]="resultExchange" class="text col-7" disabled name="MnewDetail" ngModel id="threadDetail1" autofocus=""/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- /Forum Detail -->
+
+            <!-- /Inner main body -->
+        </div>
+        <!-- /Inner main -->
+    </div>
+
+    <!--login modal-->
+<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header align-items-center">
+            <h2 class="modal-title mb-0 text-center">
+                <!-- <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded-circle" width="150" > -->
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  Login</h2>
+        </div>
+        <div class="modal-body">
+            <form class="form col-md-12 center-block was-validated" #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+              <div class="form-group">
+                <input type="text" ngModel name="MLusername" class="form-control input-lg" placeholder="User" required minlength="3">
+              </div>
+              <div class="form-group">
+                <input type="password" ngModel name="MLpassword" class="form-control input-lg" placeholder="Password" required minlength="3">
+            </div>
+              <div class="form-group">
+                <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary btn-lg btn-block">Sign In</button>
+                <span class="pull-right"><a data-dismiss="modal" data-toggle="modal" data-target="#RegisterModal" href="#">Register</a></span>
+              </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+            <div *ngIf="this.isWrongCredentials" class="col-9 align-self-start">
+            <label class="label-error">Invalid Username or Password</label> 
+            </div>
+            <div class="col-3">
+            <button id="btn_login_cancel" class="btn btn-light" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            </div>	
+            </div>	
+        </div>
+    </div>
+    </div>
+  </div>
+  <!--End login modal-->
+
+  <!--Register Author Modal-->
+<div id="RegisterModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header align-items-center">
+            <h2 class="modal-title mb-0 text-center">
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  Register User</h2>
+        </div>
+        <div class="modal-body">
+            <form class="form col-md-12 center-block was-validated" #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
+                <div class="form-group">
+                    <input type="text" ngModel name="MRname" class="form-control input-lg" placeholder="Name" required>
+                  </div>
+              <div class="form-group">
+                <input ngModel (ngModelChange)="searchUser(user.value)" #user="ngModel" type="text" name="MRusername" class="form-control input-lg" placeholder="User" required minlength="3" > 
+              </div>
+              
+              <div class="form-group">
+                <input type="password" ngModel name="MRpassword" class="form-control input-lg" placeholder="Password" required minlength="3">
+            </div>
+            <div class="form-group">
+                <input type="text" ngModel name="MRurl" class="form-control input-lg" placeholder="URL">
+            </div>
+              <div class="form-group">
+                <button [disabled]="registerForm.invalid || !this.isValiduser" type="submit" class="btn btn-success btn-lg btn-block">Register</button>
+              </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+            <div *ngIf="!this.isValiduser" class="col-9 align-self-start">
+            <label class="label-error">Username is Already been Used</label> 
+            </div> 
+            <div class="col-3">
+            <button id="MRbtn_cancel" class="btn btn-light" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            </div>	
+            </div>	
+        </div>
+    </div>
+    </div>
+  </div>
+  <!--End login modal-->
+</div>
+</div>
